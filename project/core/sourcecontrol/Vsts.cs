@@ -352,7 +352,8 @@ namespace ThoughtWorks.CruiseControl.Core.Sourcecontrol
             LookForErrorReturns(pr);
 
             TfsWorkspaceStatus status = new TfsWorkspaceStatus();
-            status.WorkspaceIsMappedCorrectly = pr.StandardOutput.Contains(ProjectPath + ": " + WorkingDirectory);
+            string expectedMapping = ProjectPath + ": " + WorkingDirectory;
+            status.WorkspaceIsMappedCorrectly = pr.StandardOutput.ToUpperInvariant().Contains(expectedMapping.ToUpperInvariant());
             status.WorkspaceExists = !(pr.StandardOutput.Contains("No workspace matching"));
 
             return status;
